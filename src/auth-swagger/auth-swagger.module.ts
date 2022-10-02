@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from "@nestjs/config";
-import { PassportModule } from "@nestjs/passport";
-import { ApiKeyStrategy } from "./api-key.strategy";
+import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
+import { ApiKeyStrategy } from './api-key.strategy';
 
 @Module({
-    imports: [PassportModule, ConfigModule],
-    providers: [ApiKeyStrategy],
-  })
+  imports: [PassportModule, ConfigModule],
+  providers: [ApiKeyStrategy],
+})
 export class AuthSwaggerModule {}

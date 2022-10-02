@@ -6,7 +6,13 @@ import { AuthUserModule } from './auth-user/auth.module';
 import { AuthSwaggerModule } from './auth-swagger/auth-swagger.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/yourLines', { useNewUrlParser: true}), AuthUserModule, AuthSwaggerModule],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/yourLines', {
+      useNewUrlParser: true,
+    }),
+    AuthUserModule,
+    AuthSwaggerModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

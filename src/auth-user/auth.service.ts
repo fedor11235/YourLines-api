@@ -2,33 +2,48 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './interfaces/user.interface';
-import { CreateUserDTO } from './dto/user-post.dto';
+import { UserDTO } from './dto/user-post.dto';
 
 @Injectable()
 export class AuthService {
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
 
-    constructor(@InjectModel('User') private readonly userModel: Model<User>) { }
-
-    async loginUser(createUserDTO: CreateUserDTO): Promise<User> {
-        const user = await new this.userModel(createUserDTO)
-        return user.save();
+  //   async loginUser(userDTO: UserDTO): Promise<User> {
+  async loginUser(userDTO: UserDTO): Promise<any> {
+    const existingLogin = await this.userModel.findOne({
+      login: userDTO.login,
+      password: userDTO.password,
+    });
+    if (existingLogin) {
+      return {
+        exists: true,
+        login: userDTO.login,
+        password: userDTO.password,
+      };
     }
+    return {
+      exists: false,
+      login: userDTO.login,
+      password: userDTO.password,
+    };
+  }
 
-    async registryUser(createUserDTO: CreateUserDTO): Promise<User> {
-        const newUser = await new this.userModel(createUserDTO)
-        return newUser.save();
+  async registryUser(userDTO: UserDTO): Promise<any> {
+    const existingLogin = await this.userModel.findOne({
+      login: userDTO.login,
+    });
+    if (existingLogin) {
+      return {
+        exists: true,
+        login: userDTO.login,
+        password: userDTO.password,
+      };
     }
-
-    // async loginUser(): Promise<User[]> {
-    //     const posts = await this.userModel.find().exec();
-    //     return posts;
-    // }
-
-    // async registryUser(postID): Promise<User> {
-    //     const post = await this.userModel
-    //         .findById(postID)
-    //         .exec();
-    //     return post;
-    // }
-
+    await new this.userModel(userDTO).save();
+    return {
+      exists: false,
+      login: userDTO.login,
+      password: userDTO.password,
+    };
+  }
 }
