@@ -7,6 +7,7 @@ import {
     Body,
     Get,
     Patch,
+    Param,
     UseGuards,
   } from '@nestjs/common';
   import { AuthGuard } from '@nestjs/passport';
@@ -57,14 +58,17 @@ import {
     }
 
     @ApiOperation({ summary: 'Post editing' })
-    // @ApiParam({ name: "id", required: true })
+    @ApiParam({ name: "id", required: true })
     @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: PostDTO })
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-    @Patch('edit')
+    @Patch(':id')
     // @UseGuards(AuthGuard("api-key"))
-    async editPost(@Res() res, @Body() postDTO: PostDTO) {
-      const post = await this.postsService.editPost(postDTO);
-      return post
+    async editPost(@Res() res, @Param('id') id: String, @Body() postDTO: PostDTO) {
+      const post = await this.postsService.updatePost(postDTO, id);
+      return res.status(HttpStatus.OK).json({
+        message: 'Post update!',
+        post: post,
+      });
     }
 
     @ApiOperation({ summary: 'Deleting a post' })
@@ -73,9 +77,12 @@ import {
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
     @Delete('registry')
     // @UseGuards(AuthGuard("api-key"))
-    async deletePost(@Res() res, @Body() postDTO: PostDTO) {
-      const post = await this.postsService.deletePost(postDTO);
-      return post
+    async deletePost(@Res() res, @Param('id') id: String) {
+      const post = await this.postsService.deletePost(id);
+      return res.status(HttpStatus.OK).json({
+        message: 'Post delete!',
+        post: post,
+      });
   }
 }
   

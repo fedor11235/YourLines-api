@@ -13,8 +13,7 @@ export class PostsService {
     return allPosts
   }
   async addingPost(postDTO: PostDTO): Promise<any> {
-    const test = await new this.postModel(postDTO).save();
-    console.log(test, 'test')
+    await new this.postModel(postDTO).save();
     return {
       image: postDTO.image,
       header: postDTO.header,
@@ -23,11 +22,13 @@ export class PostsService {
     }
   }
 
-  async editPost(postDTO: PostDTO): Promise<any> {
-    return 'test'
+  async updatePost(postDTO: PostDTO, id: String): Promise<any> {
+    const upDatePost = this.postModel.updateOne({ _id: id }, {'$set': postDTO})
+    return upDatePost
   }
 
-  async deletePost(postDTO: PostDTO): Promise<any> {
-    return 'test'
+  async deletePost(id: String): Promise<any> {
+    const deletedPost =this.postModel.remove({_id: id})
+    return deletedPost
   }
 }
