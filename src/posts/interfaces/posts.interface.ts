@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { Document } from 'mongoose';
 import { Post } from './post.interface';
 
-export class Posts {
-  posts: Array<Post>
+export class Posts extends Document {
+  posts: Array<Post>;
 }

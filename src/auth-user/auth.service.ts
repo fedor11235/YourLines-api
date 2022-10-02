@@ -8,42 +8,25 @@ import { AuthDTO } from './dto/auth.dto';
 export class AuthService {
   constructor(@InjectModel('User') private readonly authModel: Model<Auth>) {}
 
-  //   async loginUser(userDTO: UserDTO): Promise<User> {
-  async loginUser(authDTO: AuthDTO): Promise<any> {
+  async loginUser(authDTO: AuthDTO): Promise<boolean> {
     const existingLogin = await this.authModel.findOne({
       login: authDTO.login,
       password: authDTO.password,
     });
     if (existingLogin) {
-      return {
-        exists: true,
-        login: authDTO.login,
-        password: authDTO.password,
-      };
+      return true;
     }
-    return {
-      exists: false,
-      login: authDTO.login,
-      password: authDTO.password,
-    };
+    return false;
   }
 
-  async registryUser(authDTO: AuthDTO): Promise<any> {
+  async registryUser(authDTO: AuthDTO): Promise<boolean> {
     const existingLogin = await this.authModel.findOne({
       login: authDTO.login,
     });
     if (existingLogin) {
-      return {
-        exists: true,
-        login: authDTO.login,
-        password: authDTO.password,
-      };
+      return true;
     }
     await new this.authModel(authDTO).save();
-    return {
-      exists: false,
-      login: authDTO.login,
-      password: authDTO.password,
-    };
+    return false;
   }
 }

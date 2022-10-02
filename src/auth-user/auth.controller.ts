@@ -4,9 +4,11 @@ import {
   HttpStatus,
   Post,
   Body,
-  UseGuards,
+  // Req,
+  // UseGuards,
+  // Session,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './dto/auth.dto';
 
@@ -31,18 +33,17 @@ export class AuthController {
   @Post('login')
   // @UseGuards(AuthGuard("api-key"))
   async loginUser(@Res() res, @Body() authDTO: AuthDTO) {
-    const user = await this.authService.loginUser(authDTO);
-    if (user.exists) {
-      delete user.exists;
+    const userExist = await this.authService.loginUser(authDTO);
+    if (userExist) {
+      res.cookie(process.env.COOKIE_KEY, process.env.COOKIE_VALUE);
       return res.status(HttpStatus.OK).json({
         message: 'You are logged in!',
-        user: user,
+        user: authDTO.login,
       });
     }
-    delete user.exists;
     return res.status(HttpStatus.OK).json({
       message: 'This user does not exist!',
-      user: user,
+      user: authDTO.login,
     });
   }
 
@@ -52,18 +53,17 @@ export class AuthController {
   @Post('registry')
   // @UseGuards(AuthGuard("api-key"))
   async registryUser(@Res() res, @Body() authDTO: AuthDTO) {
-    const newUser = await this.authService.registryUser(authDTO);
-    if (newUser.exists) {
-      delete newUser.exists;
+    const userExist = await this.authService.registryUser(authDTO);
+    if (userExist) {
       return res.status(HttpStatus.OK).json({
         message: 'User exists!',
-        user: newUser,
+        user: authDTO.login,
       });
     }
-    delete newUser.exists;
+    res.cookie(process.env.COOKIE_KEY, process.env.VALUE);
     return res.status(HttpStatus.OK).json({
       message: 'User created!',
-      user: newUser,
+      user: authDTO.login,
     });
   }
 }

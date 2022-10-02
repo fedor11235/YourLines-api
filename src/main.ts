@@ -2,10 +2,21 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+// import * as session from 'express-session';
+// import secureSession from '@fastify/secure-session';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe())
+  app.use(cookieParser());
+  // app.use(
+  //   session({
+  //     secret: 'yor-lines-key',
+  //     resave: false,
+  //     saveUninitialized: false,
+  //   }),
+  // );
+  app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('YouLines API')
     .setDescription('The YouLines API description')
