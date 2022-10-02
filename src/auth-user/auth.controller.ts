@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { UserDTO } from './dto/user-post.dto';
-// import { User } from './entities/user.entities';
+import { AuthDTO } from './dto/auth.dto';
+
 import {
   ApiTags,
   ApiOperation,
@@ -26,14 +26,12 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: 'Login user' })
-  // @ApiParam({ name: "password", required: true })
-  // @ApiParam({ name: "login", required: true })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: UserDTO })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: AuthDTO })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post('login')
   // @UseGuards(AuthGuard("api-key"))
-  async loginUser(@Res() res, @Body() userDTO: UserDTO) {
-    const user = await this.authService.loginUser(userDTO);
+  async loginUser(@Res() res, @Body() authDTO: AuthDTO) {
+    const user = await this.authService.loginUser(authDTO);
     if (user.exists) {
       delete user.exists;
       return res.status(HttpStatus.OK).json({
@@ -49,14 +47,12 @@ export class AuthController {
   }
 
   @ApiOperation({ summary: 'Login user' })
-  // @ApiParam({ name: "password", required: true })
-  // @ApiParam({ name: "login", required: true })
-  @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: UserDTO })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: AuthDTO })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post('registry')
   // @UseGuards(AuthGuard("api-key"))
-  async registryUser(@Res() res, @Body() userDTO: UserDTO) {
-    const newUser = await this.authService.registryUser(userDTO);
+  async registryUser(@Res() res, @Body() authDTO: AuthDTO) {
+    const newUser = await this.authService.registryUser(authDTO);
     if (newUser.exists) {
       delete newUser.exists;
       return res.status(HttpStatus.OK).json({

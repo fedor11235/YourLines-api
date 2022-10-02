@@ -1,49 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './interfaces/user.interface';
-import { UserDTO } from './dto/user-post.dto';
+import { Auth } from './interfaces/auth.interface';
+import { AuthDTO } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel('User') private readonly userModel: Model<User>) {}
+  constructor(@InjectModel('User') private readonly authModel: Model<Auth>) {}
 
   //   async loginUser(userDTO: UserDTO): Promise<User> {
-  async loginUser(userDTO: UserDTO): Promise<any> {
-    const existingLogin = await this.userModel.findOne({
-      login: userDTO.login,
-      password: userDTO.password,
+  async loginUser(authDTO: AuthDTO): Promise<any> {
+    const existingLogin = await this.authModel.findOne({
+      login: authDTO.login,
+      password: authDTO.password,
     });
     if (existingLogin) {
       return {
         exists: true,
-        login: userDTO.login,
-        password: userDTO.password,
+        login: authDTO.login,
+        password: authDTO.password,
       };
     }
     return {
       exists: false,
-      login: userDTO.login,
-      password: userDTO.password,
+      login: authDTO.login,
+      password: authDTO.password,
     };
   }
 
-  async registryUser(userDTO: UserDTO): Promise<any> {
-    const existingLogin = await this.userModel.findOne({
-      login: userDTO.login,
+  async registryUser(authDTO: AuthDTO): Promise<any> {
+    const existingLogin = await this.authModel.findOne({
+      login: authDTO.login,
     });
     if (existingLogin) {
       return {
         exists: true,
-        login: userDTO.login,
-        password: userDTO.password,
+        login: authDTO.login,
+        password: authDTO.password,
       };
     }
-    await new this.userModel(userDTO).save();
+    await new this.authModel(authDTO).save();
     return {
       exists: false,
-      login: userDTO.login,
-      password: userDTO.password,
+      login: authDTO.login,
+      password: authDTO.password,
     };
   }
 }
