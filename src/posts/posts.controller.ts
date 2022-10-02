@@ -75,7 +75,7 @@ import {
     @ApiParam({ name: "id", required: true })
     @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: PostDTO })
     @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-    @Delete('registry')
+    @Delete(':id')
     // @UseGuards(AuthGuard("api-key"))
     async deletePost(@Res() res, @Param('id') id: String) {
       const post = await this.postsService.deletePost(id);

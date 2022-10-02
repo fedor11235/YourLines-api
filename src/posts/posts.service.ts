@@ -23,12 +23,14 @@ export class PostsService {
   }
 
   async updatePost(postDTO: PostDTO, id: String): Promise<any> {
-    const upDatePost = this.postModel.updateOne({ _id: id }, {'$set': postDTO})
+    const upDatePost = await this.postModel.updateOne({id:id}, postDTO)
     return upDatePost
   }
 
   async deletePost(id: String): Promise<any> {
-    const deletedPost =this.postModel.remove({_id: id})
+    const deletedPost = await this.postModel.findById(id)
+    deletedPost.remove()
+
     return deletedPost
   }
 }
