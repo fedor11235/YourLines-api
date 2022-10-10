@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class EditingDTO {
   @ApiProperty({ description: 'User nickname', nullable: false })
-  login: string;
+  nickname: string;
 
   @ApiProperty({ description: 'User link', nullable: false })
   link: string;
