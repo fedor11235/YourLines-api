@@ -9,10 +9,13 @@ import { PostDTO } from './dto/post.dto';
 export class PostsService {
   constructor(@InjectModel('Post') private readonly postModel: Model<Posts>) {}
   async getAllPosts(): Promise<any> {
-    const allPosts = this.postModel.find();
+    const allPosts = this.postModel.find().sort({ _id: -1 });
     return allPosts;
   }
   async addingPost(postDTO: PostDTO): Promise<void> {
+    const data = new Date();
+    postDTO.date = data.toLocaleDateString();
+    postDTO.time = data.toLocaleTimeString();
     await new this.postModel(postDTO).save();
   }
 

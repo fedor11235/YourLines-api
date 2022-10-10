@@ -5,6 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 // import * as session from 'express-session';
 // import secureSession from '@fastify/secure-session';
 import * as cookieParser from 'cookie-parser';
+const cors = require('cors');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,6 +31,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  // app.use(cors())
   app.enableCors();
   await app.listen(3000);
 }

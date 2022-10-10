@@ -8,12 +8,15 @@ import {
   Get,
   Patch,
   Param,
+  UseInterceptors,
+  UploadedFile,
   // UseGuards,
 } from '@nestjs/common';
 // import { AuthGuard } from '@nestjs/passport';
 import { PostsService } from './posts.service';
 import { PostDTO } from './dto/post.dto';
 import { PostsDTO } from './dto/posts.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import {
   ApiTags,
@@ -51,6 +54,8 @@ export class PostsController {
   @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: PostDTO })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post('add')
+  @UseInterceptors(FileInterceptor('formdata'))
+  // @UseInterceptors(FileInterceptor('file'))
   // @UseGuards(AuthGuard("api-key"))
   async addingPost(@Res() res, @Body() postDTO: PostDTO) {
     await this.postsService.addingPost(postDTO);

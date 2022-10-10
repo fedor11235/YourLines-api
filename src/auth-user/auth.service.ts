@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Auth } from './interfaces/auth.interface';
 import { AuthDTO } from './dto/auth.dto';
+import { EditingDTO } from './dto/editing.dto';
 
 @Injectable()
 export class AuthService {
@@ -28,5 +29,9 @@ export class AuthService {
     }
     await new this.authModel(authDTO).save();
     return false;
+  }
+
+  async editing(editingDTO: EditingDTO, id: string): Promise<void> {
+    await this.authModel.updateOne({ id: id }, editingDTO);
   }
 }
