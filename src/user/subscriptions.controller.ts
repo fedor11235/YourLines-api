@@ -3,10 +3,8 @@ import {
   Res,
   HttpStatus,
   Post,
-  Put,
   Body,
   UseInterceptors,
-  Param,
   Get,
   // Req,
   // UseGuards,
@@ -17,14 +15,13 @@ import { SubscriptionsService } from './subscriptions.service';
 import { FollowerDTO } from './dto/follower.dto';
 import { FollowingDTO } from './dto/following.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FormDataRequest } from 'nestjs-form-data';
+// import { FormDataRequest } from 'nestjs-form-data';
 
 import {
   ApiTags,
   ApiOperation,
-  ApiParam,
   ApiResponse,
-  ApiSecurity,
+  // ApiSecurity,
 } from '@nestjs/swagger';
 
 @ApiTags('Subscriptions')

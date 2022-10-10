@@ -2,12 +2,10 @@ import {
   Controller,
   Res,
   HttpStatus,
-  Post,
   Put,
   Body,
   UseInterceptors,
   Param,
-  Get,
   // Req,
   // UseGuards,
   // Session,
@@ -22,7 +20,7 @@ import {
   ApiOperation,
   ApiParam,
   ApiResponse,
-  ApiSecurity,
+  // ApiSecurity,
 } from '@nestjs/swagger';
 
 @ApiTags('User')

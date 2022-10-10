@@ -3,11 +3,8 @@ import {
   Res,
   HttpStatus,
   Post,
-  Put,
   Body,
   UseInterceptors,
-  Param,
-  Get,
   // Req,
   // UseGuards,
   // Session,
@@ -15,19 +12,15 @@ import {
 // import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './dto/auth.dto';
-import { EditingDTO } from './dto/editing.dto';
 import { RegistrationDTO } from './dto/registration.dto';
-import { FollowerDTO } from './dto/follower.dto';
-import { FollowingDTO } from './dto/following.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { FormDataRequest } from 'nestjs-form-data';
+// import { FormDataRequest } from 'nestjs-form-data';
 
 import {
   ApiTags,
   ApiOperation,
-  ApiParam,
   ApiResponse,
-  ApiSecurity,
+  // ApiSecurity,
 } from '@nestjs/swagger';
 // import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
 
