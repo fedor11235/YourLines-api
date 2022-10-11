@@ -43,7 +43,7 @@ export class EditController {
   // @UseGuards(AuthGuard("api-key"))
   async editingUser(
     @Res() res,
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() editingDTO: EditingDTO,
   ) {
     await this.editService.editing(editingDTO, id);

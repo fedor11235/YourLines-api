@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { AuthSwaggerModule } from './auth-swagger/auth-swagger.module';
 import { PostsUserModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 // import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
@@ -14,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot('mongodb://localhost/yourLines', {
       useNewUrlParser: true,
     }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     UserModule,
     AuthSwaggerModule,
     PostsUserModule,

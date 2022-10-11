@@ -37,18 +37,8 @@ export class AuthController {
   @UseInterceptors(FileInterceptor('formdata'))
   // @UseGuards(AuthGuard("api-key"))
   async loginUser(@Res() res, @Body() authDTO: AuthDTO) {
-    const userExist = await this.authService.loginUser(authDTO);
-    if (userExist) {
-      res.cookie(process.env.COOKIE_KEY, process.env.COOKIE_VALUE);
-      return res.status(HttpStatus.OK).json({
-        login: true,
-        user: authDTO.login,
-      });
-    }
-    return res.status(HttpStatus.OK).json({
-      login: false,
-      user: authDTO.login,
-    });
+    const user = await this.authService.loginUser(authDTO);
+    return res.status(HttpStatus.OK).json(user);
   }
 
   @ApiOperation({ summary: 'Login user' })
@@ -59,17 +49,8 @@ export class AuthController {
   @UseInterceptors(FileInterceptor('formdata'))
   // @UseGuards(AuthGuard("api-key"))
   async registryUser(@Res() res, @Body() registrationDTO: RegistrationDTO) {
-    const userExist = await this.authService.registryUser(registrationDTO);
-    if (userExist) {
-      return res.status(HttpStatus.OK).json({
-        user: registrationDTO.login,
-        registry: false,
-      });
-    }
+    const user = await this.authService.registryUser(registrationDTO);
     res.cookie(process.env.COOKIE_KEY, process.env.VALUE);
-    return res.status(HttpStatus.OK).json({
-      user: registrationDTO.login,
-      registry: true,
-    });
+    return res.status(HttpStatus.OK).json(user);
   }
 }

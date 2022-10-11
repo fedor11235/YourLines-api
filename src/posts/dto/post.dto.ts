@@ -12,8 +12,4 @@ export class PostDTO {
 
   @ApiProperty({ description: 'comments', nullable: false })
   comments: Array<string>;
-
-  date: string;
-
-  time: string;
 }

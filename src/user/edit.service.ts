@@ -1,14 +1,47 @@
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { Auth } from './interfaces/auth.interface';
 import { EditingDTO } from './dto/editing.dto';
+import { User } from './entity/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class EditService {
-  constructor(@InjectModel('User') private readonly authModel: Model<Auth>) {}
+  constructor(
+    @InjectRepository(User) private readonly userModel: Repository<User>,
+  ) {}
 
-  async editing(editingDTO: EditingDTO, id: string): Promise<void> {
-    await this.authModel.updateOne({ id: id }, editingDTO);
+  async editing(body: EditingDTO, id: number): Promise<void> {
+    const userToUpdate = await this.userModel.findOneBy({
+      id: id,
+    });
+
+    if (body.email) {
+      userToUpdate.email = body.email;
+    }
+    if (body.password) {
+      userToUpdate.password = body.password;
+    }
+    if (body.nickname) {
+      userToUpdate.nickname = body.nickname;
+    }
+    if (body.link) {
+      userToUpdate.link = body.link;
+    }
+    if (body.description) {
+      userToUpdate.description = body.description;
+    }
+    if (body.webSite) {
+      userToUpdate.webSite = body.webSite;
+    }
+    if (body.wishList) {
+      userToUpdate.wishList = body.wishList;
+    }
+    if (body.avatar) {
+      userToUpdate.avatar = body.avatar;
+    }
+    if (body.headerImage) {
+      userToUpdate.headerImage = body.headerImage;
+    }
+    await this.userModel.save(userToUpdate);
   }
 }
