@@ -6,8 +6,8 @@ export class Subscriptions {
   public id!: string;
 
   @Column({ type: 'varchar', length: 120 })
-  public idUser: number;
+  public idUser: string;
 
   @Column({ type: 'varchar', length: 120 })
-  public subscriptions: number;
+  public subscriptions: string;
 }

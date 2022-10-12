@@ -13,11 +13,19 @@ export class SubscriptionService {
     @InjectRepository(Subscriptions)
     private readonly subscriptionsModel: Repository<Subscriptions>,
   ) {}
-  getSubscriptions(): string {
-    return 'Hello World!';
+  async getSubscriptions(id: string): Promise<any> {
+    return await this.subscriptionsModel.find({
+      where: {
+        idUser: id,
+      },
+    });
   }
-  getSubscribers(): string {
-    return 'Hello World!';
+  async getSubscribers(id: string): Promise<any> {
+    return await this.subscribersModel.find({
+      where: {
+        idUser: id,
+      },
+    });
   }
   async subscribe(body: SubscriptionDTO): Promise<any> {
     const subscriptionsToUpdate = await this.subscriptionsModel.findOneBy({
@@ -25,10 +33,22 @@ export class SubscriptionService {
       subscriptions: body.idSubscriptions,
     });
 
-    // if (!subscriptionsToUpdate) {
+    if (!subscriptionsToUpdate) {
+      const subscriptions = new Subscriptions();
+      subscriptions.idUser = body.id;
+      subscriptions.subscriptions = body.idSubscriptions;
 
-    // }
+      await this.subscriptionsModel.save(subscriptions);
+
+      const subscribers = new Subscribers();
+      subscribers.idUser = body.idSubscriptions;
+      subscribers.subscribers = body.id;
+
+      await this.subscribersModel.save(subscribers);
+
+      return true;
+    }
     // this.subscriptionsModel
-    return 'Hello World!';
+    return false;
   }
 }

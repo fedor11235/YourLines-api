@@ -1,4 +1,12 @@
-import { Controller, HttpStatus, Post, Get, Res, Body } from '@nestjs/common';
+import {
+  Controller,
+  HttpStatus,
+  Post,
+  Get,
+  Res,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { SubscriptionService } from './subscription.service';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SubscriptionDTO } from './dto/subscription.dto';
@@ -11,23 +19,27 @@ export class SubscriptionController {
   @ApiOperation({ summary: 'Get list of subscriptions' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Get('subscribers')
-  getSubscriptions() {
-    return this.subscriptionService.getSubscriptions();
+  @Get('subscriptions/:id')
+  async getSubscriptions(@Res() res, @Param('id') id: string) {
+    const result = await this.subscriptionService.getSubscriptions(id);
+    return res.status(HttpStatus.OK).json(result);
   }
 
   @ApiOperation({ summary: 'Get list of subscribers' })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Get('subscribers')
-  getSubscribers() {
-    return this.subscriptionService.getSubscribers();
+  @Get('subscribers/:id')
+  async getSubscribers(@Res() res, @Param('id') id: string) {
+    const result = await this.subscriptionService.getSubscribers(id);
+    return res.status(HttpStatus.OK).json(result);
   }
 
+  @ApiOperation({ summary: 'Follow user' })
   @Post('subscribe')
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  subscribe(@Res() res, @Body() subscriptionDTO: SubscriptionDTO) {
-    return this.subscriptionService.subscribe(subscriptionDTO);
+  async subscribe(@Res() res, @Body() subscriptionDTO: SubscriptionDTO) {
+    const result = await this.subscriptionService.subscribe(subscriptionDTO);
+    return res.status(HttpStatus.OK).json(result);
   }
 }
