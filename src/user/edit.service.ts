@@ -10,7 +10,7 @@ export class EditService {
     @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
 
-  async editing(body: EditingDTO, id: number): Promise<void> {
+  async editing(body: EditingDTO, id: string): Promise<void> {
     const userToUpdate = await this.userModel.findOneBy({
       id: id,
     });

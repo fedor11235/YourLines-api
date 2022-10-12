@@ -27,7 +27,7 @@ import {
 } from '@nestjs/swagger';
 // import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
 
-@ApiTags('posts')
+@ApiTags('Posts')
 // @ApiSecurity("X-API-KEY", ["X-API-KEY"])
 @Controller('posts')
 export class PostsController {
@@ -72,7 +72,7 @@ export class PostsController {
   // @UseGuards(AuthGuard("api-key"))
   async editPost(
     @Res() res,
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() postDTO: PostDTO,
   ) {
     await this.postsService.updatePost(postDTO, id);
@@ -87,7 +87,7 @@ export class PostsController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Delete(':id')
   // @UseGuards(AuthGuard("api-key"))
-  async deletePost(@Res() res, @Param('id') id: number) {
+  async deletePost(@Res() res, @Param('id') id: string) {
     await this.postsService.deletePost(id);
     return res.status(HttpStatus.OK).json({
       status: HttpStatus.OK,

@@ -19,18 +19,18 @@ export class PostsService {
       post.image = body.image;
     }
     if (body.header) {
-      post.image = body.header;
+      post.header = body.header;
     }
     if (body.description) {
-      post.image = body.description;
+      post.description = body.description;
     }
     if (body.comments) {
-      post.image = body.comments;
+      post.comments = body.comments;
     }
     return await this.postModel.save(post);
   }
 
-  async updatePost(body: PostDTO, id: number): Promise<Post> {
+  async updatePost(body: PostDTO, id: string): Promise<Post> {
     const postToUpdate = await this.postModel.findOneBy({
       id: id,
     });
@@ -39,19 +39,19 @@ export class PostsService {
       postToUpdate.image = body.image;
     }
     if (body.header) {
-      postToUpdate.image = body.header;
+      postToUpdate.header = body.header;
     }
     if (body.description) {
-      postToUpdate.image = body.description;
+      postToUpdate.description = body.description;
     }
     if (body.comments) {
-      postToUpdate.image = body.comments;
+      postToUpdate.comments = body.comments;
     }
 
     return await this.postModel.save(postToUpdate);
   }
 
-  async deletePost(id: number): Promise<Post> {
+  async deletePost(id: string): Promise<Post> {
     const postToDelete = await this.postModel.findOneBy({
       id: id,
     });

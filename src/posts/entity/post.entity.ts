@@ -8,8 +8,8 @@ import {
 
 @Entity()
 export class Post {
-  @PrimaryGeneratedColumn()
-  public id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  public id!: string;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public image: any;
