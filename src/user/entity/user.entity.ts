@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Posts } from '../../posts/entity/posts.entity';
+import { Comments } from '../../posts/entity/comments.entity';
 
 @Entity()
 export class User {
@@ -39,6 +40,9 @@ export class User {
 
   @OneToMany(() => Posts, (post) => post.user)
   posts: Posts[];
+
+  @OneToMany(() => Comments, (comment) => comment.user)
+  comment: Comments[];
 
   /*
    * Create and Update Date Columns

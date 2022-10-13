@@ -11,13 +11,23 @@ export class PostsService {
     @InjectRepository(Posts) private readonly postModel: Repository<Posts>,
     @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
-  async getAllPosts(): Promise<any> {
-    return await this.postModel.find();
+  async getAllPosts(nickname: any): Promise<any> {
+    const result = await this.userModel.find({
+      where: {
+        nickname: nickname,
+      },
+      relations: {
+        posts: true,
+        comment: true,
+      },
+    });
+    return result;
   }
   async addingPost(body: PostDTO, nickname: any): Promise<Posts> {
     const user = await this.userModel.findOneBy({
       nickname: nickname,
     });
+
     const post: Posts = new Posts();
 
     if (body.image) {

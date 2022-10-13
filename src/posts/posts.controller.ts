@@ -34,16 +34,17 @@ export class PostsController {
   constructor(private postsService: PostsService) {}
 
   @ApiOperation({ summary: 'get all posts' })
+  @ApiParam({ name: 'nickname', required: true })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Success',
     type: PostsDTO,
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Get()
+  @Get(':nickname')
   // @UseGuards(AuthGuard("api-key"))
-  async getAllPosts(@Res() res) {
-    const posts = await this.postsService.getAllPosts();
+  async getAllPosts(@Res() res, @Param('nickname') nickname: any) {
+    const posts = await this.postsService.getAllPosts(nickname);
     return res.status(HttpStatus.OK).json({
       total: posts.length,
       posts: posts,

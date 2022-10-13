@@ -5,34 +5,31 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  ManyToMany,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { User } from '../../user/entity/user.entity';
-import { Comments } from './comments.entity';
+import { Posts } from './posts.entity';
 
 @Entity()
-export class Posts {
+export class Comments {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
-  public image: any;
+  public text: any;
 
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public header: string;
+  @Column({ type: 'int', nullable: true })
+  public likes: any;
 
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public description: string;
-
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public comments: Array<string>;
+  @Column({ type: 'int', nullable: true })
+  public view: any;
 
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
 
-  @ManyToMany(() => Comments, (comment) => comment.post)
-  comment: Comments[];
+  @OneToOne(() => Posts, (post) => post.comment)
+  post: Posts;
 
   /*
    * Create and Update Date Columns
