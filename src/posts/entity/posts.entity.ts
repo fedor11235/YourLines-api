@@ -4,10 +4,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { User } from '../../user/entity/user.entity';
 
 @Entity()
-export class Post {
+export class Posts {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -22,6 +24,9 @@ export class Post {
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public comments: Array<string>;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 
   /*
    * Create and Update Date Columns

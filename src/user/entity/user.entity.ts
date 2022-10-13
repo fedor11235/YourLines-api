@@ -4,7 +4,9 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Posts } from '../../posts/entity/posts.entity';
 
 @Entity()
 export class User {
@@ -34,6 +36,9 @@ export class User {
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public headerImage: string;
+
+  @OneToMany(() => Posts, (post) => post.user)
+  posts: Posts[];
 
   /*
    * Create and Update Date Columns

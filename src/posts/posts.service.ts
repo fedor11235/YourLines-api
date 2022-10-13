@@ -2,18 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostDTO } from './dto/post.dto';
-import { Post } from './entity/post.entity';
+import { Posts } from './entity/posts.entity';
+import { User } from '../user/entity/user.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(Post) private readonly postModel: Repository<Post>,
+    @InjectRepository(Posts) private readonly postModel: Repository<Posts>,
+    @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
   async getAllPosts(): Promise<any> {
     return await this.postModel.find();
   }
-  async addingPost(body: PostDTO): Promise<Post> {
-    const post: Post = new Post();
+  async addingPost(body: PostDTO, nickname: any): Promise<Posts> {
+    const user = await this.userModel.findOneBy({
+      nickname: nickname,
+    });
+    const post: Posts = new Posts();
 
     if (body.image) {
       post.image = body.image;
@@ -27,10 +32,12 @@ export class PostsService {
     if (body.comments) {
       post.comments = body.comments;
     }
+
+    post.user = user;
     return await this.postModel.save(post);
   }
 
-  async updatePost(body: PostDTO, id: any): Promise<Post> {
+  async updatePost(body: PostDTO, id: any): Promise<Posts> {
     const postToUpdate = await this.postModel.findOneBy({
       id: id,
     });
@@ -51,7 +58,7 @@ export class PostsService {
     return await this.postModel.save(postToUpdate);
   }
 
-  async deletePost(id: any): Promise<Post> {
+  async deletePost(id: any): Promise<Posts> {
     const postToDelete = await this.postModel.findOneBy({
       id: id,
     });

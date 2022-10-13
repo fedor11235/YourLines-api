@@ -19,21 +19,21 @@ export class EditController {
   constructor(private editService: EditService) {}
 
   @ApiOperation({ summary: 'Editing user' })
-  @ApiParam({ name: 'id', required: true })
+  @ApiParam({ name: 'nickname', required: true })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Success',
     type: EditingDTO,
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Put(':id')
+  @Put(':nickname')
   @UseInterceptors(FileInterceptor('formdata'))
   async editingUser(
     @Res() res,
-    @Param('id') id: any,
+    @Param('nickname') nickname: any,
     @Body() editingDTO: EditingDTO,
   ) {
-    await this.editService.editing(editingDTO, id);
+    await this.editService.editing(editingDTO, nickname);
     return res.status(HttpStatus.OK).json('ok');
   }
 }

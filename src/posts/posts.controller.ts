@@ -51,14 +51,19 @@ export class PostsController {
   }
 
   @ApiOperation({ summary: 'Adding a post' })
+  @ApiParam({ name: 'nickname', required: true })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: PostDTO })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Post('add')
+  @Post('add/:nickname')
   @UseInterceptors(FileInterceptor('formdata'))
   // @UseInterceptors(FileInterceptor('file'))
   // @UseGuards(AuthGuard("api-key"))
-  async addingPost(@Res() res, @Body() postDTO: PostDTO) {
-    await this.postsService.addingPost(postDTO);
+  async addingPost(
+    @Res() res,
+    @Param('nickname') nickname: any,
+    @Body() postDTO: PostDTO,
+  ) {
+    await this.postsService.addingPost(postDTO, nickname);
     return res.status(HttpStatus.OK).json({
       status: HttpStatus.OK,
     });
