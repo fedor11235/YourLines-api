@@ -19,11 +19,10 @@ export class CommentsService {
     const user = await this.userModel.findOneBy({
       nickname: body.user,
     });
-    console.log(user, 'user');
+
     const post = await this.postModel.findOneBy({
       id: body.post,
     });
-    console.log(post, 'post');
 
     const comment: Comments = new Comments();
     comment.text = body.text;
@@ -32,15 +31,23 @@ export class CommentsService {
 
     console.log(comment, 'comment');
 
-    await this.commentModel.save(post);
-    // const result = await this.userModel.find({
-    //   where: {
-    //     nickname: nickname,
-    //   },
-    //   relations: {
-    //     posts: true,
-    //   },
-    // });
+    await this.commentModel.save(comment);
+    return 'ok';
+  }
+
+  async deleteComment(id: any): Promise<any> {
+    const commentToDelete = await this.commentModel.findOneBy({ id: id });
+    this.commentModel.remove(commentToDelete);
+    return 'ok';
+  }
+
+  async addLike(id: any): Promise<any> {
+    const commentToLike = await this.commentModel.findOneBy({ id: id });
+    if (commentToLike.likes) {
+      commentToLike.likes += 1;
+    }
+    commentToLike.likes = 1;
+    this.commentModel.save(commentToLike);
     return 'ok';
   }
 }

@@ -43,4 +43,35 @@ export class CommentsController {
       posts: posts,
     });
   }
+
+  @ApiOperation({ summary: 'Delete comment' })
+  @ApiParam({ name: 'id', required: true })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Success',
+    type: CommentDTO,
+  })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @Get(':id')
+  // @UseGuards(AuthGuard("api-key"))
+  async deleteComment(@Res() res, @Param('id') id: any) {
+    const responDelete = await this.commentsService.deleteComment(id);
+    return res.status(HttpStatus.OK).json(responDelete);
+  }
+
+  @ApiOperation({ summary: 'Add like' })
+  @ApiParam({ name: 'id', required: true })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Success',
+    type: CommentDTO,
+  })
+
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @Get(':id')
+  // @UseGuards(AuthGuard("api-key"))
+  async addLike(@Res() res, @Param('id') id: any) {
+    const responLike = await this.commentsService.addLike(id);
+    return res.status(HttpStatus.OK).json(responLike);
+  }
 }

@@ -25,10 +25,10 @@ export class Comments {
   @Column({ type: 'int', nullable: true })
   public view: any;
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.comment)
   user: User;
 
-  @OneToOne(() => Posts, (post) => post.comment)
+  @ManyToOne(() => Posts, (post) => post.comment)
   post: Posts;
 
   /*
