@@ -1,4 +1,4 @@
-import { User } from '../../user/entity/user.entity';
+// import { User } from '../../user/entity/user.entity';
 import {
   Entity,
   Column,
@@ -12,9 +12,9 @@ export class Subscribers {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, { nullable: true })
-  public user: User;
+  @Column({ nullable: true })
+  public user: string;
 
-  @OneToOne(() => User, { nullable: true })
-  public subscribers: User;
+  @Column({ nullable: true })
+  public subscriptions: string;
 }

@@ -70,11 +70,7 @@ export class PostsController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Patch(':id')
   // @UseGuards(AuthGuard("api-key"))
-  async editPost(
-    @Res() res,
-    @Param('id') id: any,
-    @Body() postDTO: PostDTO,
-  ) {
+  async editPost(@Res() res, @Param('id') id: any, @Body() postDTO: PostDTO) {
     await this.postsService.updatePost(postDTO, id);
     return res.status(HttpStatus.OK).json({
       status: HttpStatus.OK,
