@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class SubscriptionDTO {
   @ApiProperty({ description: 'id user', nullable: true })
-  id: string;
+  nickUser: string;
 
   @ApiProperty({ description: 'id subscriptions', nullable: true })
-  idSubscriptions: string;
+  nickSubscriptions: string;
 }

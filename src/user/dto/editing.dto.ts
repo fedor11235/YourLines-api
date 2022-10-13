@@ -1,30 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class EditingDTO {
-  @ApiProperty({ description: 'User email', nullable: true })
+  @ApiProperty({ description: 'User email' })
   email: string;
 
-  @ApiProperty({ description: 'User password', nullable: true })
+  @ApiProperty({ description: 'User password' })
   password: string;
 
-  @ApiProperty({ description: 'User nickname', nullable: true })
+  @ApiProperty({ description: 'User nickname' })
   nickname: string;
 
-  @ApiProperty({ description: 'User link', nullable: true })
+  @ApiProperty({ description: 'User link' })
   link: string;
 
-  @ApiProperty({ description: 'User description', nullable: true })
+  @ApiProperty({ description: 'User description' })
   description: string;
 
-  @ApiProperty({ description: 'User web site', nullable: true })
+  @ApiProperty({ description: 'User web site' })
   webSite: string;
 
-  @ApiProperty({ description: 'User a wish list', nullable: true })
+  @ApiProperty({ description: 'User a wish list' })
   wishList: string;
 
-  @ApiProperty({ description: 'User avatar', nullable: true })
+  @ApiProperty({ description: 'User avatar' })
   avatar: string;
 
-  @ApiProperty({ description: 'User header image', nullable: true })
+  @ApiProperty({ description: 'User header image' })
   headerImage: string;
 }

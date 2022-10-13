@@ -1,13 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../user/entity/user.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 
 @Entity()
 export class Subscriptions {
   @PrimaryGeneratedColumn('uuid')
-  public id!: string;
+  id: string;
 
-  @Column({ type: 'varchar', length: 120 })
-  public idUser: string;
+  @OneToOne(() => User, { nullable: true })
+  public user: User;
 
-  @Column({ type: 'varchar', length: 120 })
-  public subscriptions: string;
+  @OneToOne(() => User, { nullable: true })
+  public subscriptions: User;
 }

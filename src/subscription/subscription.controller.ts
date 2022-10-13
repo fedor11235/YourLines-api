@@ -20,7 +20,7 @@ export class SubscriptionController {
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get('subscriptions/:id')
-  async getSubscriptions(@Res() res, @Param('id') id: string) {
+  async getSubscriptions(@Res() res, @Param('id') id: any) {
     const result = await this.subscriptionService.getSubscriptions(id);
     return res.status(HttpStatus.OK).json(result);
   }
@@ -29,7 +29,7 @@ export class SubscriptionController {
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get('subscribers/:id')
-  async getSubscribers(@Res() res, @Param('id') id: string) {
+  async getSubscribers(@Res() res, @Param('id') id: any) {
     const result = await this.subscriptionService.getSubscribers(id);
     return res.status(HttpStatus.OK).json(result);
   }

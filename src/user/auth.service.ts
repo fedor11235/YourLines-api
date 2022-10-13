@@ -25,10 +25,11 @@ export class AuthService {
   }
 
   async registryUser(body: RegistrationDTO): Promise<User | boolean> {
-    const ifUser = await this.userModel.findOneBy({
-      email: body.email,
-      password: body.password,
-    });
+    const ifUser = await this.userModel.findOneBy([
+      { email: body.email },
+      { nickname: body.nickname },
+      { link: body.nickname.toLowerCase().replace(/ /g, '_') },
+    ]);
 
     if (ifUser) {
       return false;
@@ -37,6 +38,7 @@ export class AuthService {
     const user: User = new User();
 
     user.nickname = body.nickname;
+    user.link = body.nickname.toLowerCase().replace(/ /g, '_');
     user.email = body.email;
     user.password = body.password;
 

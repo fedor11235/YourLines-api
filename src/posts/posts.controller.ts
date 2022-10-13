@@ -72,7 +72,7 @@ export class PostsController {
   // @UseGuards(AuthGuard("api-key"))
   async editPost(
     @Res() res,
-    @Param('id') id: string,
+    @Param('id') id: any,
     @Body() postDTO: PostDTO,
   ) {
     await this.postsService.updatePost(postDTO, id);
@@ -87,7 +87,7 @@ export class PostsController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Delete(':id')
   // @UseGuards(AuthGuard("api-key"))
-  async deletePost(@Res() res, @Param('id') id: string) {
+  async deletePost(@Res() res, @Param('id') id: any) {
     await this.postsService.deletePost(id);
     return res.status(HttpStatus.OK).json({
       status: HttpStatus.OK,

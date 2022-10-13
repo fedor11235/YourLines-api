@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('uuid')
-  public id!: string;
+  id: string;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public image: any;

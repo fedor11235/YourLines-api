@@ -9,7 +9,6 @@ export class RegistrationDTO {
   // @IsNotEmpty()
   @ApiProperty({
     description: 'User nickname',
-    nullable: false,
     required: true,
   })
   nickname: string;
@@ -17,7 +16,6 @@ export class RegistrationDTO {
   // @IsNotEmpty()
   @ApiProperty({
     description: 'User password',
-    nullable: false,
     required: true,
   })
   password: string;

@@ -1,27 +1,24 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
+  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  public id!: string;
+  @PrimaryColumn({ type: 'varchar', length: 120 })
+  public nickname: string;
 
-  @Column({ type: 'varchar', length: 120 })
+  @Column({ type: 'varchar', length: 120, unique: true })
+  public link: string;
+
+  @Column({ type: 'varchar', length: 120, unique: true })
   public email: string;
 
   @Column({ type: 'varchar', length: 120 })
   public password: string;
-
-  @Column({ type: 'varchar', length: 120 })
-  public nickname: string;
-
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public link: string;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public description: string;
@@ -43,8 +40,8 @@ export class User {
    */
 
   @CreateDateColumn({ type: 'timestamp' })
-  public createdAt!: Date;
+  public createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt!: Date;
+  public updatedAt: Date;
 }

@@ -30,7 +30,7 @@ export class EditController {
   @UseInterceptors(FileInterceptor('formdata'))
   async editingUser(
     @Res() res,
-    @Param('id') id: string,
+    @Param('id') id: any,
     @Body() editingDTO: EditingDTO,
   ) {
     await this.editService.editing(editingDTO, id);

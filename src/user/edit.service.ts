@@ -10,38 +10,37 @@ export class EditService {
     @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
 
-  async editing(body: EditingDTO, id: string): Promise<void> {
-    const userToUpdate = await this.userModel.findOneBy({
-      id: id,
-    });
-
-    if (body.email) {
-      userToUpdate.email = body.email;
-    }
-    if (body.password) {
-      userToUpdate.password = body.password;
-    }
-    if (body.nickname) {
-      userToUpdate.nickname = body.nickname;
-    }
-    if (body.link) {
-      userToUpdate.link = body.link;
-    }
-    if (body.description) {
-      userToUpdate.description = body.description;
-    }
-    if (body.webSite) {
-      userToUpdate.webSite = body.webSite;
-    }
-    if (body.wishList) {
-      userToUpdate.wishList = body.wishList;
-    }
-    if (body.avatar) {
-      userToUpdate.avatar = body.avatar;
-    }
-    if (body.headerImage) {
-      userToUpdate.headerImage = body.headerImage;
-    }
-    await this.userModel.save(userToUpdate);
+  async editing(body: EditingDTO, id: any): Promise<void> {
+    // const userToUpdate = await this.userModel.findOneBy({
+    //   id: id,
+    // });
+    // if (body.email) {
+    //   userToUpdate.email = body.email;
+    // }
+    // if (body.password) {
+    //   userToUpdate.password = body.password;
+    // }
+    // if (body.nickname) {
+    //   userToUpdate.nickname = body.nickname;
+    // }
+    // if (body.link) {
+    //   userToUpdate.link = body.link;
+    // }
+    // if (body.description) {
+    //   userToUpdate.description = body.description;
+    // }
+    // if (body.webSite) {
+    //   userToUpdate.webSite = body.webSite;
+    // }
+    // if (body.wishList) {
+    //   userToUpdate.wishList = body.wishList;
+    // }
+    // if (body.avatar) {
+    //   userToUpdate.avatar = body.avatar;
+    // }
+    // if (body.headerImage) {
+    //   userToUpdate.headerImage = body.headerImage;
+    // }
+    // await this.userModel.save(userToUpdate);
   }
 }

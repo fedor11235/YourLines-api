@@ -30,7 +30,7 @@ export class PostsService {
     return await this.postModel.save(post);
   }
 
-  async updatePost(body: PostDTO, id: string): Promise<Post> {
+  async updatePost(body: PostDTO, id: any): Promise<Post> {
     const postToUpdate = await this.postModel.findOneBy({
       id: id,
     });
@@ -51,7 +51,7 @@ export class PostsService {
     return await this.postModel.save(postToUpdate);
   }
 
-  async deletePost(id: string): Promise<Post> {
+  async deletePost(id: any): Promise<Post> {
     const postToDelete = await this.postModel.findOneBy({
       id: id,
     });

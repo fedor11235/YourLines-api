@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { SubscriptionDTO } from './dto/subscription.dto';
 import { Subscribers } from './entity/subscribers.entity';
 import { Subscriptions } from './entity/subscriptions.entity';
+import { User } from '../user/entity/user.entity';
 
 @Injectable()
 export class SubscriptionService {
@@ -12,43 +13,44 @@ export class SubscriptionService {
     private readonly subscribersModel: Repository<Subscribers>,
     @InjectRepository(Subscriptions)
     private readonly subscriptionsModel: Repository<Subscriptions>,
+    @InjectRepository(User)
+    private readonly userModel: Repository<User>,
   ) {}
-  async getSubscriptions(id: string): Promise<any> {
-    return await this.subscriptionsModel.find({
-      where: {
-        idUser: id,
-      },
-    });
+  async getSubscriptions(id: any): Promise<any> {
+    // return await this.subscriptionsModel.find({
+    //   where: {
+    //     idUser: id,
+    //   },
+    // });
   }
-  async getSubscribers(id: string): Promise<any> {
-    return await this.subscribersModel.find({
-      where: {
-        idUser: id,
-      },
-    });
+  async getSubscribers(id: any): Promise<any> {
+    // return await this.subscribersModel.find({
+    //   where: {
+    //     idUser: id,
+    //   },
+    // });
   }
   async subscribe(body: SubscriptionDTO): Promise<any> {
-    const subscriptionsToUpdate = await this.subscriptionsModel.findOneBy({
-      idUser: body.id,
-      subscriptions: body.idSubscriptions,
+    const user: User = await this.userModel.findOneBy({
+      nickname: body.nickUser,
     });
 
-    if (!subscriptionsToUpdate) {
-      const subscriptions = new Subscriptions();
-      subscriptions.idUser = body.id;
-      subscriptions.subscriptions = body.idSubscriptions;
+    const subscribing: User = await this.userModel.findOneBy({
+      nickname: body.nickSubscriptions,
+    });
 
-      await this.subscriptionsModel.save(subscriptions);
+    const subscriptions = new Subscriptions();
+    subscriptions.user = user;
+    subscriptions.subscriptions = subscribing;
 
-      const subscribers = new Subscribers();
-      subscribers.idUser = body.idSubscriptions;
-      subscribers.subscribers = body.id;
+    await this.subscriptionsModel.save(subscriptions);
 
-      await this.subscribersModel.save(subscribers);
+    const subscribers = new Subscribers();
+    subscribers.user = subscribing;
+    subscribers.subscribers = user;
 
-      return true;
-    }
-    // this.subscriptionsModel
-    return false;
+    await this.subscribersModel.save(subscribers);
+
+    return 'ok';
   }
 }
