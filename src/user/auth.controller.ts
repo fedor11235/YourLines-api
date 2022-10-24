@@ -13,6 +13,7 @@ import {
   Headers,
   // Req,
   UseGuards,
+  UnauthorizedException,
   // Session,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
@@ -58,7 +59,7 @@ export class AuthController {
   }
 
   @Get('user')
-  @UseInterceptors(FileInterceptor('formdata'))
+  @UseGuards(AuthGuard("jwt"))
   async getUser(@Res() res, @Headers() headers) {
     const user = await this.authService.getUser(headers.authorization);
     return res.status(HttpStatus.OK).json(user);
@@ -75,5 +76,46 @@ export class AuthController {
   async deleteUser(@Res() res, @Headers() headers) {
     await this.authService.deleteUser(headers.authorization);
     return res.status(HttpStatus.OK).json('ok');
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req) {}
+
+  @Get('google/redirect')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Req() req) {
+    console.log(req, 'req')
+    return this.authService.socialLogin(req)
+  }
+
+  @Get('twitter')
+  @UseGuards(AuthGuard('twitter'))
+  twitter() {
+    throw new UnauthorizedException();
+  }
+
+  @Get('twitter/redirect')
+  @UseGuards(AuthGuard('twitter'))
+  async twitterCallback(@Req() req: any, @Res() response) {
+    return this.authService.socialLogin(req)
+  }
+}
+
+@Controller('google')
+export class GoogleController {
+  constructor(
+    private authService: AuthService,
+  ) {}
+
+  @Get()
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req) {}
+
+  @Get('redirect')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Res() res, @Req() req) {
+    // res.redirect('/books/greet');
+    return this.authService.socialLogin(req)
   }
 }

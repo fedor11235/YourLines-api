@@ -88,6 +88,9 @@ export class AuthService {
   }
 
   async userRefreshToken(refreshToken: any) {
+    if(!refreshToken) {
+      return
+    }
     const decodeToken: any = this.jwtService.decode(refreshToken.slice(7))
     const userToken = await this.tokenModel.findOneBy([
       { userId: decodeToken.id },
@@ -108,4 +111,29 @@ export class AuthService {
     this.tokenModel.remove(userRemoveToken);
     return 'ok';
   }
+
+  async socialLogin(body: any): Promise<any> {
+    const user = await this.userModel.findOneBy({email: body.email});
+    if(user) {
+      return this.jwtService.sign({ id: user.id })
+    }
+    if (!body.user) {
+      const user = new User();
+
+      user.email = body.email;
+      user.avatar = body.picture;
+      user.link = '';
+  
+      await this.userModel.save(user);
+      return this.jwtService.sign({ id: user.id })
+    }
+  }
 }
+
+// user: {
+//   email: 'fedoravdeev3@gmail.com',
+//   firstName: 'Fedor',
+//   lastName: 'Avdeev',
+//   picture: 'https://lh3.googleusercontent.com/a/ALm5wu0VdHVXR6ADBjCrFEEdz0wRIRIXM9gehgHQw1PECA=s96-c',
+//   accessToken: 'ya29.a0Aa4xrXNoJXCmzbXVdjCGaUd1DX0KcPhf9gFbqIzqxwfZ3tpGoeRvf1d7-EQKkIYxodFl-p4eoPRnGWhNHJ61EI9cF-DUSk4zhfwBkFpMXcsIaznk9AP2a-mCXjVHdv_2rYXgpFXGoQVQJjm1Aw1n6dTEvTKWaCgYKATASARMSFQEjDvL9DOcB7EBc0cu0gLI3t0iGFw0163'
+// },
