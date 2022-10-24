@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PostDTO } from './dto/post.dto';
 import { Posts } from './entity/posts.entity';
 import { User } from '../user/entity/user.entity';
 import { Comments } from './entity/comments.entity';
@@ -28,8 +27,6 @@ export class CommentsService {
     comment.text = body.text;
     comment.user = user;
     comment.post = post;
-
-    console.log(comment, 'comment');
 
     await this.commentModel.save(comment);
     return 'ok';

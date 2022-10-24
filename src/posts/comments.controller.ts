@@ -3,24 +3,14 @@ import {
   Res,
   HttpStatus,
   Post,
-  Delete,
   Body,
   Get,
-  Patch,
   Param,
-  UseInterceptors,
-  UploadedFile,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CommentDTO } from './dto/comment.dto';
 
-import {
-  ApiTags,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  // ApiSecurity,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @ApiTags('Comments')
 @Controller('comments')
@@ -66,7 +56,6 @@ export class CommentsController {
     description: 'Success',
     type: CommentDTO,
   })
-
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get(':id')
   // @UseGuards(AuthGuard("api-key"))

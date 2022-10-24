@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PostDTO {
-  @ApiProperty({ description: 'image', nullable: true })
+  @ApiProperty({ description: 'image' })
   image: any;
 
-  @ApiProperty({ description: 'header', nullable: true })
+  @ApiProperty({ description: 'header' })
   header: string;
 
-  @ApiProperty({ description: 'description', nullable: true })
+  @ApiProperty({ description: 'description' })
   description: string;
 
-  @ApiProperty({ description: 'comments', nullable: true })
+  @ApiProperty({ description: 'comments' })
   comments: Array<string>;
 }

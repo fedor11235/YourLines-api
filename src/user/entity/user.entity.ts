@@ -6,13 +6,17 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Posts } from '../../posts/entity/posts.entity';
 import { Comments } from '../../posts/entity/comments.entity';
 
 @Entity()
 export class User {
-  @PrimaryColumn({ type: 'varchar', length: 120 })
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ type: 'varchar', length: 120 })
   public nickname: string;
 
   @Column({ type: 'varchar', length: 120, unique: true })
