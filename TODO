@@ -1,0 +1,4 @@
+//   @ApiOperation({ summary: 'Post editing' })
+//   @ApiParam({ name: 'id', required: true })
+//   @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: PostDTO })
+//   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })

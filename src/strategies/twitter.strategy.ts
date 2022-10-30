@@ -9,7 +9,6 @@ config();
 
 @Injectable()
 export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
-
   constructor(private configService: ConfigService) {
     super({
       // clientID: configService.get<string>('GOOGLE_CLIENT_ID'),
@@ -26,7 +25,13 @@ export class TwitterStrategy extends PassportStrategy(Strategy, 'twitter') {
     });
   }
 
-  validate(req: Request, accessToken: string, refreshToken: string, profile: any, done: (error: any, user?: any) => void) {
+  validate(
+    req: Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: any,
+    done: (error: any, user?: any) => void,
+  ) {
     const user: any = {
       id: profile.id,
       nick: profile.username,
