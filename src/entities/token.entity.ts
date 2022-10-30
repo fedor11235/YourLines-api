@@ -17,10 +17,6 @@ export class Token {
   @Column({ type: 'varchar', length: 512 })
   public token: string;
 
-  /*
-   * Create and Update Date Columns
-   */
-
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
 

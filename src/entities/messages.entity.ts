@@ -22,13 +22,9 @@ export class Messages {
   @ManyToOne(() => User, (user) => user.comment)
   recipient: User;
 
-  /*
-   * Create and Update Date Columns
-   */
-
   @CreateDateColumn({ type: 'timestamp' })
-  public createdAt!: Date;
+  public createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt!: Date;
+  public updatedAt: Date;
 }

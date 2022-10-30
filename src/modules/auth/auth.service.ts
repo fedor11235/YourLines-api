@@ -131,11 +131,3 @@ export class AuthService {
     }
   }
 }
-
-// user: {
-//   email: 'fedoravdeev3@gmail.com',
-//   firstName: 'Fedor',
-//   lastName: 'Avdeev',
-//   picture: 'https://lh3.googleusercontent.com/a/ALm5wu0VdHVXR6ADBjCrFEEdz0wRIRIXM9gehgHQw1PECA=s96-c',
-//   accessToken: 'ya29.a0Aa4xrXNoJXCmzbXVdjCGaUd1DX0KcPhf9gFbqIzqxwfZ3tpGoeRvf1d7-EQKkIYxodFl-p4eoPRnGWhNHJ61EI9cF-DUSk4zhfwBkFpMXcsIaznk9AP2a-mCXjVHdv_2rYXgpFXGoQVQJjm1Aw1n6dTEvTKWaCgYKATASARMSFQEjDvL9DOcB7EBc0cu0gLI3t0iGFw0163'
-// },

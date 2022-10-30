@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  ManyToMany,
   OneToMany,
 } from 'typeorm';
 import { User } from './user.entity';
@@ -37,13 +36,9 @@ export class Posts {
   @OneToMany(() => Comments, (comment) => comment.post)
   comment: Comments[];
 
-  /*
-   * Create and Update Date Columns
-   */
-
   @CreateDateColumn({ type: 'timestamp' })
-  public createdAt!: Date;
+  public createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt!: Date;
+  public updatedAt: Date;
 }

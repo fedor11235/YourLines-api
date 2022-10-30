@@ -3,38 +3,28 @@ import {
   Res,
   HttpStatus,
   Get,
-  Param,
   Post,
   Body,
   UseInterceptors,
   Delete,
   Req,
-  Request,
   Headers,
-  // Req,
   UseGuards,
   UnauthorizedException,
-  // Session,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthDTO } from '../../dto/auth.dto';
-import { UserDTO } from '../../dto/user.dto';
 import { RegistrationDTO } from '../../dto/registration.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtService } from '@nestjs/jwt';
-// import { FormDataRequest } from 'nestjs-form-data';
 
 import {
   ApiTags,
   ApiOperation,
-  ApiResponse,
-  // ApiSecurity,
 } from '@nestjs/swagger';
-// import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
 
 @ApiTags('Auth')
-// @ApiSecurity("X-API-KEY", ["X-API-KEY"])
 @Controller('auth')
 export class AuthController {
   constructor(

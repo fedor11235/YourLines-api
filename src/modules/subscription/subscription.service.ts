@@ -51,14 +51,6 @@ export class SubscriptionService {
     return subscribers;
   }
   async subscribe(body: SubscriptionDTO): Promise<any> {
-    // const user: User = await this.userModel.findOneBy({
-    //   nickname: body.nickUser,
-    // });
-
-    // const subscribing: User = await this.userModel.findOneBy({
-    //   nickname: body.nickSubscriptions,
-    // });
-
     const subscriptions = new Subscriptions();
     subscriptions.user = body.nickUser;
     subscriptions.subscriptions = body.nickSubscriptions;

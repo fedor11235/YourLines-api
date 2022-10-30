@@ -25,7 +25,6 @@ export class CommentsController {
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post()
-  // @UseGuards(AuthGuard("api-key"))
   async putComment(@Res() res, @Body() commentDTO: CommentDTO) {
     const posts = await this.commentsService.putComment(commentDTO);
     return res.status(HttpStatus.OK).json({
@@ -43,7 +42,6 @@ export class CommentsController {
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get(':id')
-  // @UseGuards(AuthGuard("api-key"))
   async deleteComment(@Res() res, @Param('id') id: any) {
     const responDelete = await this.commentsService.deleteComment(id);
     return res.status(HttpStatus.OK).json(responDelete);
@@ -58,7 +56,6 @@ export class CommentsController {
   })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get(':id')
-  // @UseGuards(AuthGuard("api-key"))
   async addLike(@Res() res, @Param('id') id: any) {
     const responLike = await this.commentsService.addLike(id);
     return res.status(HttpStatus.OK).json(responLike);
