@@ -5,10 +5,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class EditService {
+export class UserService {
   constructor(
     @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
+
+  async getAllUsers() {
+    const users = await this.userModel.find()
+    console.log(users, 'users')
+    return await users
+  }
 
   async editing(body: EditingDTO, id: any): Promise<any> {
     const userToUpdate = await this.userModel.findOneBy({ id: id });

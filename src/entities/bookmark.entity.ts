@@ -7,20 +7,18 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { User } from './user.entity';
+import { Posts } from './posts.entity';
 
 @Entity()
-export class Messages {
+export class Bookmark {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public text: any;
-
-  @ManyToOne(() => User, (user) => user.sender)
+  @ManyToOne(() => User, (user) => user.bookmark)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.recipient)
-  recipient: User;
+  @ManyToOne(() => Posts, (post) => post.bookmark)
+  post: Posts;
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;

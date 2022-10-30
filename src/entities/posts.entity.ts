@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 import { Comments } from './comments.entity';
+import { Bookmark } from './bookmark.entity';
 
 @Entity()
 export class Posts {
@@ -35,6 +36,9 @@ export class Posts {
 
   @OneToMany(() => Comments, (comment) => comment.post)
   comment: Comments[];
+
+  @OneToMany(() => Bookmark, (bookmark) => bookmark.post)
+  bookmark: Bookmark[];
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;

@@ -2,21 +2,22 @@ import {
   Controller,
   Res,
   HttpStatus,
+  Get,
   Put,
   Body,
   UseInterceptors,
   Param,
 } from '@nestjs/common';
-import { EditService } from './user.service';
+import { UserService } from './user.service';
 import { EditingDTO } from '../../dto/editing.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('Edit')
+@ApiTags('Users')
 @Controller('edit')
-export class EditController {
-  constructor(private editService: EditService) {}
+export class UserController {
+  constructor(private userService: UserService) {}
 
   @ApiOperation({ summary: 'Editing user' })
   @ApiParam({ name: 'id', required: true })
@@ -33,7 +34,14 @@ export class EditController {
     @Param('id') id: any,
     @Body() editingDTO: EditingDTO,
   ) {
-    const result = await this.editService.editing(editingDTO, id);
+    const result = await this.userService.editing(editingDTO, id);
     return res.status(HttpStatus.OK).json(result);
+  }
+
+  @Get()
+  @UseInterceptors(FileInterceptor('formdata'))
+  async getAllUsers(@Res() res) {
+    const usersAll = await this.userService.getAllUsers();
+    return res.status(HttpStatus.OK).json(usersAll);
   }
 }

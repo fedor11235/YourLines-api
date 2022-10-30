@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 import { Posts } from './posts.entity';
 import { Comments } from './comments.entity';
+import { Bookmark } from './bookmark.entity';
+import { Messages } from './messages.entity';
 
 @Entity()
 export class User {
@@ -47,9 +49,14 @@ export class User {
   @OneToMany(() => Comments, (comment) => comment.user)
   comment: Comments[];
 
-  /*
-   * Create and Update Date Columns
-   */
+  @OneToMany(() => Bookmark, (bookmark) => bookmark.user)
+  bookmark: Bookmark[];
+
+  @OneToMany(() => Messages, (message) => message.user)
+  sender: Messages[];
+
+  @OneToMany(() => Messages, (message) => message.recipient)
+  recipient: Messages[];
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
