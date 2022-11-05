@@ -34,26 +34,27 @@ export class UserService {
 
   async getUsersByLink(link: string) {
     const user = await this.userModel.findOne({
-        where: { link: link },
-        relations: {
-          posts: true,
-        }
-      });
-    delete user.password
-    return user
+      where: { link: link },
+      relations: {
+        posts: true,
+      },
+    });
+    delete user.password;
+    return user;
   }
 
   async searchUserByNickname(nickname: string) {
     const users = await this.userModel.find({
       where: {
-        nickname: Like(`%${nickname}%`)
-      }
+        nickname: Like(`%${nickname}%`),
+      },
     });
-    return users.map((e) => {
-      delete e.password;
-      return e;
-    })
-    .reverse();
+    return users
+      .map((e) => {
+        delete e.password;
+        return e;
+      })
+      .reverse();
   }
 
   async editing(body: EditingDTO, id: any): Promise<any> {

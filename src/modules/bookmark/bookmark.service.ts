@@ -14,7 +14,7 @@ export class BookmarkService {
     private readonly bookmarkModel: Repository<Bookmark>,
     @InjectRepository(Posts) private readonly postModel: Repository<Posts>,
     @InjectRepository(User) private readonly userModel: Repository<User>,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async getAllBookmark(token: string) {
@@ -26,13 +26,13 @@ export class BookmarkService {
       },
     });
 
-    const bookmarkIds = user.bookmark.map(e => e.id)
+    const bookmarkIds = user.bookmark.map((e) => e.id);
 
     const bookmarks = await this.bookmarkModel.find({
-      where: {id: In(bookmarkIds)},
+      where: { id: In(bookmarkIds) },
       relations: {
         user: true,
-        post: true
+        post: true,
       },
     });
 
@@ -50,7 +50,7 @@ export class BookmarkService {
     bookmark.post = post;
     bookmark.user = user;
     bookmark.usersPost = usersPost;
-  
+
     this.bookmarkModel.save(bookmark);
     return 'ok';
   }

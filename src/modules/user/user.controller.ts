@@ -8,7 +8,7 @@ import {
   UseInterceptors,
   Param,
   UseGuards,
-  Headers
+  Headers,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { EditingDTO } from '../../dto/editing.dto';
@@ -47,7 +47,7 @@ export class UserController {
   }
 
   @Get('link/:link')
-  async getUsersByLink(@Res() res, @Param('link') link: string,) {
+  async getUsersByLink(@Res() res, @Param('link') link: string) {
     const user = await this.userService.getUsersByLink(link);
     return res.status(HttpStatus.OK).json(user);
   }

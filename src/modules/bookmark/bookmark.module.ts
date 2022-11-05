@@ -9,12 +9,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../../constants';
 
 @Module({
-  imports: [    
+  imports: [
     JwtModule.register({
-    secret: jwtConstants.secret,
-    signOptions: { expiresIn: jwtConstants.expiresIn },
-  }),
-  TypeOrmModule.forFeature([Bookmark, Posts, User])],
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: jwtConstants.expiresIn },
+    }),
+    TypeOrmModule.forFeature([Bookmark, Posts, User]),
+  ],
   controllers: [BookmarkController],
   providers: [BookmarkService],
 })

@@ -5,9 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Subscribers } from '../../entities/subscribers.entity';
 import { Subscriptions } from '../../entities/subscriptions.entity';
 import { User } from '../../entities/user.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from '../../constants';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Subscribers, Subscriptions, User])],
+  imports: [
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: jwtConstants.expiresIn },
+    }),
+    TypeOrmModule.forFeature([Subscribers, Subscriptions, User]),
+  ],
   controllers: [SubscriptionController],
   providers: [SubscriptionService],
 })

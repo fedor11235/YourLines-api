@@ -8,7 +8,7 @@ import {
   UseInterceptors,
   Param,
   UseGuards,
-  Headers
+  Headers,
 } from '@nestjs/common';
 import { BookmarkService } from './bookmark.service';
 import { BookmarkDTO } from '../../dto/bookmark.dto';
@@ -23,18 +23,24 @@ export class BookmarkController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getAllBookmark(@Res() res, @Headers() headers) {
-    const bookmarks = await this.bookmarkService.getAllBookmark(headers.authorization);
+    const bookmarks = await this.bookmarkService.getAllBookmark(
+      headers.authorization,
+    );
     return res.status(HttpStatus.OK).json(bookmarks);
   }
   @Post(':idPost')
   @UseGuards(AuthGuard('jwt'))
   async addBookmark(
     @Res() res,
-    @Param('idPost') idPost: any, 
-    @Body() body: any, 
-    @Headers() headers
+    @Param('idPost') idPost: any,
+    @Body() body: any,
+    @Headers() headers,
   ) {
-    const result = await this.bookmarkService.addBookmark(headers.authorization, idPost, body.idUser);
+    const result = await this.bookmarkService.addBookmark(
+      headers.authorization,
+      idPost,
+      body.idUser,
+    );
     return res.status(HttpStatus.OK).json(result);
   }
 }
