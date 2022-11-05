@@ -20,7 +20,7 @@ import { BookmarkModule } from './modules/bookmark/bookmark.module';
     SubscriptionModule,
     MessagesModule,
     UserModule,
-    BookmarkModule
-  ]
+    BookmarkModule,
+  ],
 })
 export class AppModule {}

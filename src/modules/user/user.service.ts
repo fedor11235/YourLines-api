@@ -2,18 +2,58 @@ import { Injectable } from '@nestjs/common';
 import { EditingDTO } from '../../dto/editing.dto';
 import { User } from '../../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly userModel: Repository<User>,
+
+    private jwtService: JwtService,
   ) {}
 
+  async getUser(refreshToken: any): Promise<any> {
+    if (!refreshToken) {
+      return false;
+    }
+    const decodeToken: any = this.jwtService.decode(refreshToken.slice(7));
+    const user = await this.userModel.findOneBy([{ id: decodeToken.id }]);
+    return user;
+  }
+
   async getAllUsers() {
-    const users = await this.userModel.find()
-    console.log(users, 'users')
-    return await users
+    const users = await this.userModel.find();
+    return users
+      .map((e) => {
+        delete e.password;
+        return e;
+      })
+      .reverse();
+  }
+
+  async getUsersByLink(link: string) {
+    const user = await this.userModel.findOne({
+        where: { link: link },
+        relations: {
+          posts: true,
+        }
+      });
+    delete user.password
+    return user
+  }
+
+  async searchUserByNickname(nickname: string) {
+    const users = await this.userModel.find({
+      where: {
+        nickname: Like(`%${nickname}%`)
+      }
+    });
+    return users.map((e) => {
+      delete e.password;
+      return e;
+    })
+    .reverse();
   }
 
   async editing(body: EditingDTO, id: any): Promise<any> {

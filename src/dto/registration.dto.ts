@@ -2,6 +2,9 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RegistrationDTO {
   @ApiProperty({ description: 'User login', required: true })
+  login: string;
+
+  @ApiProperty({ description: 'User login', required: true })
   email: string;
 
   @ApiProperty({

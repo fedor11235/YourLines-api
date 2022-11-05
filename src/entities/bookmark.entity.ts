@@ -17,6 +17,9 @@ export class Bookmark {
   @ManyToOne(() => User, (user) => user.bookmark)
   user: User;
 
+  @ManyToOne(() => User, (user) => user.usersPost)
+  usersPost: User;
+
   @ManyToOne(() => Posts, (post) => post.bookmark)
   post: Posts;
 

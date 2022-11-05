@@ -15,12 +15,14 @@ export class MessagesService {
 
   async messageGetAll(idUser: any) {
     const messagesAll = await this.messagesModel.findOneBy({ user: idUser });
-    return messagesAll
+    return messagesAll;
   }
 
   async messageSend(messagesDTO: MessagesDTO, id: any) {
     const user = await this.userModel.findOneBy({ id: id });
-    const recipient = await this.userModel.findOneBy({ id: messagesDTO.recipient });
+    const recipient = await this.userModel.findOneBy({
+      id: messagesDTO.recipient,
+    });
 
     const messages: Messages = new Messages();
 
@@ -30,12 +32,12 @@ export class MessagesService {
 
     await this.messagesModel.save(messages);
 
-    return 'ok'
+    return 'ok';
   }
 
   async messageDelete(id: any) {
     const messagesDelete = await this.messagesModel.findOneBy({ id: id });
-    this.messagesModel.remove(messagesDelete)
-    return 'ok'
+    this.messagesModel.remove(messagesDelete);
+    return 'ok';
   }
 }

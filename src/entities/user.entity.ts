@@ -52,6 +52,9 @@ export class User {
   @OneToMany(() => Bookmark, (bookmark) => bookmark.user)
   bookmark: Bookmark[];
 
+  @OneToMany(() => Bookmark, (bookmark) => bookmark.usersPost)
+  usersPost: Bookmark[];
+
   @OneToMany(() => Messages, (message) => message.user)
   sender: Messages[];
 

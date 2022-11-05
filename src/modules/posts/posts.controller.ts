@@ -15,9 +15,7 @@ import { PostDTO } from '../../dto/post.dto';
 import { PostsDTO } from '../../dto/posts.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-import {
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Posts')
 @Controller('posts')

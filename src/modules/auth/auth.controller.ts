@@ -19,10 +19,7 @@ import { RegistrationDTO } from '../../dto/registration.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtService } from '@nestjs/jwt';
 
-import {
-  ApiTags,
-  ApiOperation,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -46,13 +43,6 @@ export class AuthController {
   async registryUser(@Res() res, @Body() registrationDTO: RegistrationDTO) {
     const userReg = await this.authService.registryUser(registrationDTO);
     return res.status(HttpStatus.OK).json(userReg);
-  }
-
-  @Get('user')
-  @UseGuards(AuthGuard('jwt'))
-  async getUser(@Res() res, @Headers() headers) {
-    const user = await this.authService.getUser(headers.authorization);
-    return res.status(HttpStatus.OK).json(user);
   }
 
   @Get('refresh')

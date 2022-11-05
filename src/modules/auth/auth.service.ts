@@ -78,15 +78,6 @@ export class AuthService {
     return await this.userModel.save(user);
   }
 
-  async getUser(refreshToken: any): Promise<any> {
-    if (!refreshToken) {
-      return false;
-    }
-    const decodeToken: any = this.jwtService.decode(refreshToken.slice(7));
-    const user = await this.userModel.findOneBy([{ id: decodeToken.id }]);
-    return user;
-  }
-
   async userRefreshToken(refreshToken: any) {
     if (!refreshToken) {
       return;
