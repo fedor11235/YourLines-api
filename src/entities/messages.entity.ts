@@ -16,6 +16,10 @@ export class Messages {
   @Column({ type: 'varchar', length: 120, nullable: true })
   public text: any;
 
+  @Column({ type: 'uuid', nullable: true })
+  public userId:  string
+
+  //????????????????
   @ManyToOne(() => User, (user) => user.sender)
   user: User;
 
