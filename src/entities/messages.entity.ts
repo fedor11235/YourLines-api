@@ -4,27 +4,25 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
 } from 'typeorm';
-import { User } from './user.entity';
 
 @Entity()
 export class Messages {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 120, nullable: true })
-  public text: any;
-
   @Column({ type: 'uuid', nullable: true })
   public userId:  string
 
-  //????????????????
-  @ManyToOne(() => User, (user) => user.sender)
-  user: User;
+  @Column({ type: String, nullable: true })
+  public roomId:  string
 
-  @ManyToOne(() => User, (user) => user.recipient)
-  recipient: User;
+
+  @Column({ type: String, nullable: true })
+  public nickname:  string
+
+  @Column({ type: 'varchar', length: 120, nullable: true })
+  public text: any;
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;

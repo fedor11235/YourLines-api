@@ -20,7 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.enableCors();
   await app.listen(port, () => {
-    console.log('[WEB]', config.get<string>('BASE_URL'));
+    console.info('[WEB]', config.get<string>('BASE_URL'));
   });
 }
 bootstrap();

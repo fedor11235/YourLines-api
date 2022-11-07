@@ -55,12 +55,6 @@ export class User {
   @OneToMany(() => Bookmark, (bookmark) => bookmark.usersPost)
   usersPost: Bookmark[];
 
-  @OneToMany(() => Messages, (message) => message.user)
-  sender: Messages[];
-
-  @OneToMany(() => Messages, (message) => message.recipient)
-  recipient: Messages[];
-
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
 

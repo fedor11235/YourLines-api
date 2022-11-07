@@ -46,10 +46,10 @@ export class MessagesController {
   //   return;
   // }
   
-  @Get('/chat')
-  async Chat(@Res() res) {
-    console.log('controller chat')
-    const messages = await this.messagesService.getMessages();
-    res.json(messages);
-  }
+  // @Get('/chat')
+  // async Chat(@Res() res) {
+    // console.log('controller chat')
+    // const messages = await this.messagesService.getMessages();
+    // res.json(messages);
+  // }
 }
