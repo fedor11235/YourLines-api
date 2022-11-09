@@ -64,4 +64,12 @@ export class PostsController {
       status: HttpStatus.OK,
     });
   }
+
+  @Get('like/:id')
+  async addLikePosts(@Res() res, @Param('id') id: any) {
+    await this.postsService.addLikePosts(id);
+    return res.status(HttpStatus.OK).json({
+      status: HttpStatus.OK,
+    });
+  }
 }

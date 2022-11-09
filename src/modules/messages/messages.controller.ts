@@ -28,12 +28,4 @@ export class MessagesController {
     const dialogues = await this.messagesService.getDialogues(headers.authorization);
     return res.status(HttpStatus.OK).json(dialogues);
   }
-
-  
-  // @Get('/chat')
-  // async Chat(@Res() res) {
-    // console.log('controller chat')
-    // const messages = await this.messagesService.getMessages();
-    // res.json(messages);
-  // }
 }

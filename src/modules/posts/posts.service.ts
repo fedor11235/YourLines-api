@@ -18,7 +18,10 @@ export class PostsService {
       },
       relations: {
         user: true,
-        comment: true,
+        // comment: true,
+        comment: {
+          user: true,
+        }
       },
     });
     return result;
@@ -84,5 +87,20 @@ export class PostsService {
       id: id,
     });
     return await this.postModel.remove(postToDelete);
+  }
+
+  async addLikePosts(id: any): Promise<any> {
+    const result: any = await this.postModel.findOne({
+      where: {
+        id: id,
+      }
+    });
+    if(result.likes !== null) {
+      result.likes += 1
+    } else {
+      result.likes = 0
+    }
+    this.postModel.save(result)
+    return 'ok';
   }
 }

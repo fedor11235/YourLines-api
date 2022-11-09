@@ -14,13 +14,13 @@ export class CommentsService {
     @InjectRepository(Posts) private readonly postModel: Repository<Posts>,
     @InjectRepository(User) private readonly userModel: Repository<User>,
   ) {}
-  async putComment(body: CommentDTO): Promise<any> {
+  async putComment(body: any): Promise<any> {
     const user = await this.userModel.findOneBy({
-      nickname: body.user,
+      id: body.userId,
     });
 
     const post = await this.postModel.findOneBy({
-      id: body.post,
+      id: body.postId,
     });
 
     const comment: Comments = new Comments();
@@ -38,13 +38,13 @@ export class CommentsService {
     return 'ok';
   }
 
-  async addLike(id: any): Promise<any> {
-    const commentToLike = await this.commentModel.findOneBy({ id: id });
-    if (commentToLike.likes) {
-      commentToLike.likes += 1;
-    }
-    commentToLike.likes = 1;
-    this.commentModel.save(commentToLike);
-    return 'ok';
-  }
+  // async addLike(id: any): Promise<any> {
+  //   const commentToLike = await this.commentModel.findOneBy({ id: id });
+  //   if (commentToLike.likes) {
+  //     commentToLike.likes += 1;
+  //   }
+  //   commentToLike.likes = 1;
+  //   this.commentModel.save(commentToLike);
+  //   return 'ok';
+  // }
 }

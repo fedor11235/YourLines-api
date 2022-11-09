@@ -40,15 +40,10 @@ export class MessagesService {
   }
 
   async createMessage(data: any) {
-    console.log(data.userId)
-    console.log(data)
-
     const messages = new Messages
     const user = await this.userModel.findOneBy({
       id: data.userId,
     });
-
-    console.log(user)
     
     messages.roomId = data.roomId
     messages.userId = data.userId

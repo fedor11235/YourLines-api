@@ -26,7 +26,7 @@ export class Posts {
   public description: string;
 
   @Column({ type: 'int', nullable: true })
-  public like: number;
+  public likes: number;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public comments: Array<string>;

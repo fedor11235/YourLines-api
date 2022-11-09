@@ -32,11 +32,15 @@ export class BookmarkService {
       where: { id: In(bookmarkIds) },
       relations: {
         user: true,
-        post: true,
+        post: {
+          comment: {
+            user: true
+          }
+        },
       },
     });
 
-    return bookmarks.reverse();
+    return bookmarks;
   }
 
   async addBookmark(token: string, idPost: any, idUsersPosts: any) {
