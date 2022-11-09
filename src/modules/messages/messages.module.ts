@@ -14,7 +14,7 @@ import { jwtConstants } from '../../constants';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
-    TypeOrmModule.forFeature([Messages, User])
+    TypeOrmModule.forFeature([Messages, User]),
   ],
   controllers: [MessagesController],
   providers: [MessagesService, MessagesGateway],

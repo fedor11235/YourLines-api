@@ -25,7 +25,9 @@ export class MessagesController {
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getDialogues(@Res() res, @Headers() headers, @Param('id') id: any) {
-    const dialogues = await this.messagesService.getDialogues(headers.authorization);
+    const dialogues = await this.messagesService.getDialogues(
+      headers.authorization,
+    );
     return res.status(HttpStatus.OK).json(dialogues);
   }
 }

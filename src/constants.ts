@@ -3,4 +3,4 @@ export const jwtConstants = {
   expiresIn: '1000s',
 };
 
-export const CLIENT_URI  = '*'
+export const CLIENT_URI = '*';

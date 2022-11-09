@@ -34,8 +34,8 @@ export class BookmarkService {
         user: true,
         post: {
           comment: {
-            user: true
-          }
+            user: true,
+          },
         },
       },
     });

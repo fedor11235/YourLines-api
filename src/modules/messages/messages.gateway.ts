@@ -6,16 +6,16 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
   MessageBody,
- } from '@nestjs/websockets';
+} from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 import { MessagesService } from './messages.service';
 
 const users: Record<string, string> = {};
 
-interface MessagePost { 
-  userId: string, 
-  text: string ,
-  roomId: string
+interface MessagePost {
+  userId: string;
+  text: string;
+  roomId: string;
 }
 
 @WebSocketGateway(88, {
@@ -25,41 +25,37 @@ interface MessagePost {
   },
 })
 export class MessagesGateway
- implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
- constructor(
-  private messagesService: MessagesService,
-  ) {}
+  constructor(private messagesService: MessagesService) {}
 
-  private roomId: string
- 
+  private roomId: string;
+
   @WebSocketServer() server: Server;
 
   afterInit(server: Server) {
     // console.info(server);
   }
 
-  @SubscribeMessage("dialog:get")
+  @SubscribeMessage('dialog:get')
   async getDialogues(@MessageBody() payload: MessagePost): Promise<void> {
     const dialogues = await this.messagesService.getDialogues(payload);
     // this.server.to(this.roomId).emit("messages", messages);
   }
 
-  @SubscribeMessage("messages:get")
+  @SubscribeMessage('messages:get')
   async handleMessagesGet(): Promise<void> {
     const messages = await this.messagesService.getMessages(this.roomId);
-    this.server.to(this.roomId).emit("messages", messages);
+    this.server.to(this.roomId).emit('messages', messages);
   }
 
-  @SubscribeMessage("message:post")
-  async handleMessagePost( @MessageBody() payload: MessagePost): Promise<void> {
+  @SubscribeMessage('message:post')
+  async handleMessagePost(@MessageBody() payload: MessagePost): Promise<void> {
     await this.messagesService.createMessage(payload);
-    this.server.to(this.roomId).emit("messages", payload);
+    this.server.to(this.roomId).emit('messages', payload);
   }
 
-  
   handleConnection(client: Socket, ...args: any[]) {
-
     const nickname = client.handshake.query.nickname as string;
     this.roomId = client.handshake.query.roomId as string;
     const socketId = client.id;
@@ -67,9 +63,9 @@ export class MessagesGateway
     users[socketId] = nickname;
     users[socketId] = this.roomId;
 
-    client.join(this.roomId)
+    client.join(this.roomId);
 
-    client.broadcast.to(this.roomId).emit("log", `${nickname} connected`);
+    client.broadcast.to(this.roomId).emit('log', `${nickname} connected`);
     console.info(`Connected ${client.id}`);
   }
 
@@ -78,7 +74,7 @@ export class MessagesGateway
     const nickname = users[socketId];
     delete users[socketId];
 
-    client.broadcast.to(this.roomId).emit("log", `${nickname} disconnected`);
+    client.broadcast.to(this.roomId).emit('log', `${nickname} disconnected`);
     console.info(`Disconnected: ${client.id}`);
   }
 }

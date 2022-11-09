@@ -19,38 +19,40 @@ export class MessagesService {
     const decodeToken: any = this.jwtService.decode(token.slice(7));
     const messages = await this.messagesModel.find({
       where: {
-        userId: decodeToken.id
+        userId: decodeToken.id,
       },
       relations: {
-        userDialog: true
-      }
+        userDialog: true,
+      },
     });
     const arrTemp = {};
 
-    const result = messages.reverse().filter(({roomId}) =>(!arrTemp[roomId] && (arrTemp[roomId] = 1)));
-    return result
+    const result = messages
+      .reverse()
+      .filter(({ roomId }) => !arrTemp[roomId] && (arrTemp[roomId] = 1));
+    return result;
   }
 
   async getMessages(roomId): Promise<any> {
     return await this.messagesModel.find({
       where: {
-        roomId: roomId
-      }
+        roomId: roomId,
+      },
     });
   }
 
   async createMessage(data: any) {
-    const messages = new Messages
+    const messages = new Messages();
     const user = await this.userModel.findOneBy({
       id: data.userId,
     });
-    
-    messages.roomId = data.roomId
-    messages.userId = data.userId
-    messages.nickname = data.nickname
-    messages.text = data.text
-    messages.userDialog = user
 
-    await this.messagesModel.save(messages)
+    messages.roomId = data.roomId;
+    messages.userId = data.userId;
+    messages.nickname = data.nickname;
+    messages.text = data.text;
+    messages.userDialog = user;
+
+    await this.messagesModel.save(messages);
   }
 }

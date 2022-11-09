@@ -14,16 +14,16 @@ export class Messages {
   id: string;
 
   @Column({ type: 'uuid', nullable: true })
-  public userId:  string
+  public userId: string;
 
   @Column({ type: String, nullable: true })
-  public roomId:  string
+  public roomId: string;
 
   @Column({ type: String, nullable: true })
-  public nickname:  string
+  public nickname: string;
 
   @ManyToOne(() => User, (user) => user.userDialog)
-  public userDialog: User
+  public userDialog: User;
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public text: any;

@@ -21,7 +21,7 @@ export class PostsService {
         // comment: true,
         comment: {
           user: true,
-        }
+        },
       },
     });
     return result;
@@ -93,14 +93,14 @@ export class PostsService {
     const result: any = await this.postModel.findOne({
       where: {
         id: id,
-      }
+      },
     });
-    if(result.likes !== null) {
-      result.likes += 1
+    if (result.likes !== null) {
+      result.likes += 1;
     } else {
-      result.likes = 0
+      result.likes = 0;
     }
-    this.postModel.save(result)
+    this.postModel.save(result);
     return 'ok';
   }
 }
