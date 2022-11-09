@@ -39,6 +39,12 @@ export class MessagesGateway
     // console.info(server);
   }
 
+  @SubscribeMessage("dialog:get")
+  async getDialogues(@MessageBody() payload: MessagePost): Promise<void> {
+    const dialogues = await this.messagesService.getDialogues(payload);
+    // this.server.to(this.roomId).emit("messages", messages);
+  }
+
   @SubscribeMessage("messages:get")
   async handleMessagesGet(): Promise<void> {
     const messages = await this.messagesService.getMessages(this.roomId);

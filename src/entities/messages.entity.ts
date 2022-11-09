@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
 export class Messages {
@@ -17,9 +19,11 @@ export class Messages {
   @Column({ type: String, nullable: true })
   public roomId:  string
 
-
   @Column({ type: String, nullable: true })
   public nickname:  string
+
+  @ManyToOne(() => User, (user) => user.userDialog)
+  public userDialog: User
 
   @Column({ type: 'varchar', length: 120, nullable: true })
   public text: any;

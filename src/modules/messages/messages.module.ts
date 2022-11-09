@@ -5,9 +5,17 @@ import { MessagesGateway } from './messages.gateway';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../../entities/user.entity';
 import { Messages } from '../../entities/messages.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from '../../constants';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Messages, User])],
+  imports: [
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: jwtConstants.expiresIn },
+    }),
+    TypeOrmModule.forFeature([Messages, User])
+  ],
   controllers: [MessagesController],
   providers: [MessagesService, MessagesGateway],
 })

@@ -55,6 +55,9 @@ export class User {
   @OneToMany(() => Bookmark, (bookmark) => bookmark.usersPost)
   usersPost: Bookmark[];
 
+  @OneToMany(() => Messages, (Messages) => Messages.userDialog)
+  userDialog: Messages[];
+
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt: Date;
 

@@ -8,43 +8,27 @@ import {
   Delete,
   Param,
   Render,
+  UseGuards,
+  Headers,
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { MessagesDTO } from '../../dto/messages.dto';
 
 import { ApiTags, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Messages')
 @Controller('messages')
 export class MessagesController {
   constructor(private messagesService: MessagesService) {}
 
-  // @Get(':id')
-  // async messageGetAll(@Res() res, @Param('id') id: any) {
-  //   const messages = await this.messagesService.messageGetAll(id);
-  //   return res.status(HttpStatus.OK).json(messages);
-  // }
+  @Get()
+  @UseGuards(AuthGuard('jwt'))
+  async getDialogues(@Res() res, @Headers() headers, @Param('id') id: any) {
+    const dialogues = await this.messagesService.getDialogues(headers.authorization);
+    return res.status(HttpStatus.OK).json(dialogues);
+  }
 
-  // @Post(':id')
-  // async messageSend(
-  //   @Res() res,
-  //   @Param('id') id: any,
-  //   @Body() messagesDTO: MessagesDTO,
-  // ) {
-  //   const result = await this.messagesService.messageSend(messagesDTO, id);
-  //   return res.status(HttpStatus.OK).json(result);
-  // }
-
-  // @Delete(':id')
-  // async messageDelete(@Res() res, @Param('id') id: any) {
-  //   const result = await this.messagesService.messageDelete(id);
-  //   return res.status(HttpStatus.OK).json(result);
-  // }
-  // @Get('/chat')
-  // @Render('index')
-  // Home() {
-  //   return;
-  // }
   
   // @Get('/chat')
   // async Chat(@Res() res) {
