@@ -9,6 +9,7 @@ import { MessagesModule } from './modules/messages/messages.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
 import { UserModule } from './modules/user/user.module';
 import { BookmarkModule } from './modules/bookmark/bookmark.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 // import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
@@ -21,6 +22,7 @@ import { BookmarkModule } from './modules/bookmark/bookmark.module';
     MessagesModule,
     UserModule,
     BookmarkModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}

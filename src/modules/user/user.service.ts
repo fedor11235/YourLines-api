@@ -18,7 +18,12 @@ export class UserService {
       return false;
     }
     const decodeToken: any = this.jwtService.decode(refreshToken.slice(7));
-    const user = await this.userModel.findOneBy([{ id: decodeToken.id }]);
+    const user = await this.userModel.findOne({
+      where: { id: decodeToken.id },
+      relations: {
+        notifications: true
+      },
+    });
     return user;
   }
 
@@ -36,7 +41,7 @@ export class UserService {
     const user = await this.userModel.findOne({
       where: { link: link },
       relations: {
-        posts: true,
+        posts: true
       },
     });
     delete user.password;

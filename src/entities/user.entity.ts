@@ -10,6 +10,7 @@ import { Posts } from './posts.entity';
 import { Comments } from './comments.entity';
 import { Bookmark } from './bookmark.entity';
 import { Messages } from './messages.entity';
+import { Notifications } from './notifications.entity';
 
 @Entity()
 export class User {
@@ -45,6 +46,12 @@ export class User {
 
   @OneToMany(() => Posts, (post) => post.user)
   posts: Posts[];
+
+  @OneToMany(() => Notifications, (notification) => notification.userTo)
+  notifications: Notifications[];
+
+  @OneToMany(() => Notifications, (actions) => actions.userFrom)
+  actions: Notifications[];
 
   @OneToMany(() => Comments, (comment) => comment.user)
   comment: Comments[];
